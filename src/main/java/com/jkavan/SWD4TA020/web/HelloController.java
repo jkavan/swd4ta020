@@ -1,30 +1,26 @@
 package com.jkavan.SWD4TA020.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloController {
-	@RequestMapping(value={"/", "/index"})
-	@ResponseBody
-	public String returnIndex() {
-		return "This is the main page";
-	}
-
-	@RequestMapping("/contact")
-	@ResponseBody
-	public String returnContact() {
-		return "This is the contact page";
+	@RequestMapping("/index")
+	public String home() {
+		return "index";
 	}
 
 	@RequestMapping("hello")
-	@ResponseBody
-	public String returnGreetingForName(
-			@RequestParam(name = "location", required=false, defaultValue="Location") String location,
-			@RequestParam(name = "name", required=false, defaultValue="Name") String name
+	public String returnHello(
+			@RequestParam(name = "name", required=false, defaultValue="anonymous") String name,
+			@RequestParam(name = "age", required=false, defaultValue="10") int age,
+			Model model
 	) {
-		return "Welcome to the " + location + " " + name + "!";
+		model.addAttribute("name", name);
+		model.addAttribute("age", age);
+		return "hello";
 	}
 }
