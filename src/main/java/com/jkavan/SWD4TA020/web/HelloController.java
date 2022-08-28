@@ -13,14 +13,4 @@ public class HelloController {
 		return "index";
 	}
 
-	@RequestMapping("hello")
-	public String returnHello(
-			@RequestParam(name = "name", required=false, defaultValue="anonymous") String name,
-			@RequestParam(name = "age", required=false, defaultValue="10") int age,
-			Model model
-	) {
-		model.addAttribute("name", name);
-		model.addAttribute("age", age);
-		return "hello";
-	}
 }
