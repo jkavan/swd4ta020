@@ -1,13 +1,12 @@
-package com.jkavan.SWD4TA020.web;
+package jkavan.Bookstore.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HelloController {
+public class BookController {
 	@RequestMapping("/index")
 	public String home() {
-		return "index";
+		return "index"; 
 	}
-
 }
