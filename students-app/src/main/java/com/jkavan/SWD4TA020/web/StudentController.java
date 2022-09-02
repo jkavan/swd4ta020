@@ -12,22 +12,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jkavan.SWD4TA020.domain.Student;
+import com.jkavan.SWD4TA020.domain.Book;
 
 @Controller
 public class StudentController {
 	
-	private List<Student> students = new ArrayList<>();
+	private List<Book> students = new ArrayList<>();
 
 	public StudentController() {
 		super();
-		this.students.add(new Student("Matti", "Meikäläinen"));
-		this.students.add(new Student("Foo", "Bar"));
+		this.students.add(new Book("Matti", "Meikäläinen"));
+		this.students.add(new Book("Foo", "Bar"));
 	}
 
 	@GetMapping("/students")
 	public String returnStudents(Model model) {
-		model.addAttribute("student", new Student("", ""));
+		model.addAttribute("student", new Book("", ""));
 		model.addAttribute("students", this.students);
 		return "students";
 	}
@@ -35,7 +35,7 @@ public class StudentController {
 	@PostMapping("/students")
 	public String studentSubmit(
 		@ModelAttribute
-		Student student,
+		Book student,
 		Model model
 	) {
 		this.students.add(student);

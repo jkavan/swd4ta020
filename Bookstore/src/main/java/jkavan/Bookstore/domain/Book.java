@@ -11,7 +11,7 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String title;
 	private String author;
 	@Column(name = "`year`")
@@ -28,6 +28,10 @@ public class Book {
 		this.year = year;
 		this.isbn = isbn;
 		this.price = price;
+	}
+	
+	public Long getId() {
+		return id;
 	}
 
 	public String getTitle() {
@@ -62,7 +66,7 @@ public class Book {
 		this.isbn = isbn;
 	}
 	
-	public float getPrice() {
+	public int getPrice() {
 		return price;
 	}
 	
