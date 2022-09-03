@@ -20,7 +20,7 @@ public class BookController {
 	public String home() {
 		return "index"; 
 	}
-	
+
 	@GetMapping("/booklist")
 	public String booklist(Model model) {
 		model.addAttribute("books", repository.findAll());
@@ -37,8 +37,20 @@ public class BookController {
     public String addBookSubmit(Book book){
         repository.save(book);
         return "redirect:/booklist";
-    }    
+    }
     
+    @RequestMapping(value = "/edit/{id}")
+    public String editBook(@PathVariable("id") Long bookId, Model model){
+    	model.addAttribute("book", repository.findById(bookId));
+        return "editbook";
+    }
+    
+    @PostMapping(value = "/edit")
+    public String editBookSubmit(Book book){
+        repository.save(book);
+        return "redirect:/booklist";
+    }
+
     /* Should be a DeleteMapping to prevent search engines from crawling to the delete page */
     @GetMapping(value = "/delete/{id}")
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
