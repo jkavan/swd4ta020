@@ -53,7 +53,7 @@ public class BookController {
 
     /* Should be a DeleteMapping to prevent search engines from crawling to the delete page */
     @GetMapping(value = "/delete/{id}")
-    public String deleteBook(@PathVariable("id") Long bookId, Model model) {
+    public String deleteBook(@PathVariable("id") Long bookId) {
     	repository.deleteById(bookId);
         return "redirect:/booklist";
     }  
