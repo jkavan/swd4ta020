@@ -4,6 +4,7 @@ xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Bookstore</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
 	<h1>Books</h1>
@@ -34,7 +35,7 @@ xmlns:th="http://www.thymeleaf.org">
 			<input type="number" th:field="*{price}" />
 		</p>
 		<p>
-			<input type="submit" />
+			<input type="submit" class="btn btn-success" />
 		</p>
 	</form>
 </body>
