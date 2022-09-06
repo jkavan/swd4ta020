@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Bookstore</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -11,7 +10,7 @@ xmlns:th="http://www.thymeleaf.org">
 	<ul>
 		<li><a href="/booklist">Books</a></li>
 	</ul>
-	<form action="#" th:action="@{/edit}" th:object="${book}" method="POST">
+	<form action="#" th:action="@{/savebook}" th:object="${book}" method="POST">
 		<p>
 			<input type="hidden" th:field="*{id}" />
 			<label for="author">Author:</label>
@@ -32,6 +31,15 @@ xmlns:th="http://www.thymeleaf.org">
 		<p>
 			<label for="price">Price:</label>
 			<input type="number" th:field="*{price}" />
+		</p>
+		<p>
+			<label for="categories">Category:</label>
+			<select id="categories" type="text" th:field="*{category}" class="form-control">
+				<option th:each="category: ${categories}"
+					th:value="${category.id}"
+					th:text="${category.name}">
+				</option>
+			</select>
 		</p>
 		<p>
 			<input type="submit" class="btn btn-success"/>

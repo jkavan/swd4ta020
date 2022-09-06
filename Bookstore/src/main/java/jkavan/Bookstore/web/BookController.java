@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jkavan.Bookstore.domain.Book;
 import jkavan.Bookstore.domain.BookRepository;
+import jkavan.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 	@Autowired
 	private BookRepository repository;
-	
+	@Autowired
+	private CategoryRepository categories;
 
 	@GetMapping(value={"/", "/booklist"})
 	public String booklist(Model model) {
@@ -26,11 +28,12 @@ public class BookController {
     @RequestMapping(value = "/addbook")
     public String addBook(Model model){
     	model.addAttribute("book", new Book());
+    	model.addAttribute("categories", categories.findAll());
         return "addbook";
     }
     
-    @PostMapping(value = "/addbook")
-    public String addBookSubmit(Book book){
+    @PostMapping(value = "/savebook")
+    public String save(Book book){
         repository.save(book);
         return "redirect:/booklist";
     }
@@ -38,13 +41,8 @@ public class BookController {
     @RequestMapping(value = "/edit/{id}")
     public String editBook(@PathVariable("id") Long bookId, Model model){
     	model.addAttribute("book", repository.findById(bookId));
+    	model.addAttribute("categories", categories.findAll());
         return "editbook";
-    }
-    
-    @PostMapping(value = "/edit")
-    public String editBookSubmit(Book book){
-        repository.save(book);
-        return "redirect:/booklist";
     }
 
     /* Should be a DeleteMapping to prevent search engines from crawling to the delete page */
