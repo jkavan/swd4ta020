@@ -1,6 +1,7 @@
 package jkavan.Bookstore.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,25 +23,29 @@ public class CategoryController {
 		System.out.println(repository.findAll());
 		return "categories";
 	}
-	
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/addcategory")
     public String addCategory(Model model){
     	model.addAttribute("category", new Category());
         return "addcategory";
     }
-    
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "/savecategory")
     public String saveCategory(Category category) {
         repository.save(category);
         return "redirect:/categories";
     }
-    
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/editcategory/{id}")
     public String editCategory(@PathVariable("id") Long categoryId, Model model){
     	model.addAttribute("category", repository.findById(categoryId));
         return "editcategory";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping(value = "/deletecategory/{id}")
     public String deleteCategory(@PathVariable("id") Long categoryId) {
     	repository.deleteById(categoryId);

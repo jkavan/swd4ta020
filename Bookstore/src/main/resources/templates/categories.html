@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Bookstore</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,21 +9,21 @@
 	<h1>Categories</h1>
 	<ul>
 		<li><a href="/">Books</a></li>
-		<li><a href="/addbook">Add a book</a></li>
+		<li sec:authorize="hasAuthority('ADMIN')"><a href="/addbook">Add a book</a></li>
 		<li><a href="/categories">Categories</a></li>
-		<li><a href="/addcategory">Add a category</a></li>
+		<li sec:authorize="hasAuthority('ADMIN')"><a href="/addcategory">Add a category</a></li>
 	</ul>
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<td>Name</td>
-				<td>Actions</td>
+				<td sec:authorize="hasAuthority('ADMIN')">Actions</td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="category: ${categories}">
 				<td th:text="${category.name}"></td>
-				<td>
+				<td sec:authorize="hasAuthority('ADMIN')">
 					<a class="btn btn-warning" th:href="@{/editcategory/{id}(id=${category.id})}">Edit</a>
 					<a class="btn btn-danger" th:href="@{/deletecategory/{id}(id=${category.id})}">Delete</a>
 				</td> 

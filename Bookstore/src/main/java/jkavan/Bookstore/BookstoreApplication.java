@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import jkavan.Bookstore.domain.Category;
 import jkavan.Bookstore.domain.CategoryRepository;
+import jkavan.Bookstore.domain.User;
+import jkavan.Bookstore.domain.UserRepository;
 import jkavan.Bookstore.domain.Book;
 import jkavan.Bookstore.domain.BookRepository;
 
@@ -18,7 +20,7 @@ public class BookstoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(CategoryRepository categories, BookRepository books) {
+	public CommandLineRunner demo(CategoryRepository categories, BookRepository books, UserRepository users) {
 		return (args) -> {
 			categories.save(new Category("Best sellers"));
 			categories.save(new Category("New books"));
@@ -28,6 +30,19 @@ public class BookstoreApplication {
 			for (Book book : books.findAll()) {
 				System.out.println(book);
 			}
+			
+			User user1 = new User(
+					"user",
+					"$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6",
+					"USER"
+			);
+			User user2 = new User(
+					"admin",
+					"$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C",
+					"ADMIN"
+			);
+			users.save(user1);
+			users.save(user2);
 		};
 	}
 	

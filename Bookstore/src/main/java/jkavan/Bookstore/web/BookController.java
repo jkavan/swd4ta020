@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,20 +38,23 @@ public class BookController {
     public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {
         return repository.findById(bookId);
     }
-	
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/addbook")
     public String addBook(Model model){
     	model.addAttribute("book", new Book());
     	model.addAttribute("categories", categories.findAll());
         return "addbook";
     }
-    
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "/savebook")
     public String save(Book book){
         repository.save(book);
         return "redirect:/booklist";
     }
-    
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/edit/{id}")
     public String editBook(@PathVariable("id") Long bookId, Model model){
     	model.addAttribute("book", repository.findById(bookId));
@@ -59,6 +63,7 @@ public class BookController {
     }
 
     /* Should be a DeleteMapping to prevent search engines from crawling to the delete page */
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping(value = "/delete/{id}")
     public String deleteBook(@PathVariable("id") Long bookId) {
     	repository.deleteById(bookId);
