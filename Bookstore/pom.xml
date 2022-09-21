@@ -60,6 +60,7 @@
 	</dependencies>
 
 	<build>
+    <finalName>Bookstore</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
